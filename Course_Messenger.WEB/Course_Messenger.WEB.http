@@ -1,0 +1,6 @@
+@Course_Messenger.WEB_HostAddress = http://localhost:5274
+
+GET {{Course_Messenger.WEB_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
