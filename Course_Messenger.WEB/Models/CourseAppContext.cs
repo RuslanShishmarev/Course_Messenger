@@ -2,7 +2,7 @@
 
 namespace Course_Messenger.WEB.Models
 {
-    public class AppContext : DbContext
+    public class CourseAppContext : DbContext
     {
         /// <summary>
         /// Таблица пользователей
@@ -19,9 +19,15 @@ namespace Course_Messenger.WEB.Models
         /// </summary>
         public DbSet<ChatModel> Chats { get; set; } = null!;
 
+        //public AppContext()
+        //{
+        //    // Database.EnsureDeleted(); - не обязательно. Удалит все, вместе с данными!
+        //    //Database.EnsureCreated();
+        //}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string dbName = "Course_Messenger";
+            string dbName = "CourseMessenger";
             optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database={dbName};Trusted_Connection=True;");
         }
     }
