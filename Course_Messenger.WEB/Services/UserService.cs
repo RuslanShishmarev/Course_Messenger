@@ -1,5 +1,7 @@
 ﻿using Course_Messenger.WEB.Models;
 using Course_Messenger.WEB.Models.Interfaces;
+using System.Security.Claims;
+using System.Text;
 
 namespace Course_Messenger.WEB.Services
 {
@@ -13,6 +15,15 @@ namespace Course_Messenger.WEB.Services
                 // алгоритму, что и в создании пользователя
                 // и порверять уже шифрованный пароль
                 var existed = db.Users.First(u => u.Email == email && u.Password == password);
+                return existed;
+            }
+        }
+
+        public UserModel Get(string email)
+        {
+            using (var db = new CourseAppContext())
+            {
+                var existed = db.Users.First(u => u.Email == email);
                 return existed;
             }
         }
@@ -70,6 +81,50 @@ namespace Course_Messenger.WEB.Services
                 db.SaveChanges();
                 return modelToUpdate;
             }
+        }
+
+        public (string login, string password) GetUserLoginPassFromBasicAuth(HttpRequest request)
+        {
+            string userName = "";
+            string userPass = "";
+            string authHeader = request.Headers["Authorization"].ToString();
+            if (authHeader != null && authHeader.StartsWith("Basic"))
+            {
+                string encodedUserNamePass = authHeader.Replace("Basic ", "");
+                var encoding = Encoding.GetEncoding("iso-8859-1");
+
+                string[] namePassArray = encoding.GetString(Convert.FromBase64String(encodedUserNamePass)).Split(':');
+                userName = namePassArray[0];
+                userPass = namePassArray[1];
+            }
+            return (userName, userPass);
+        }
+
+        public ClaimsIdentity GetIdentity(string email, string password, out int userId)
+        {
+            var currentUser = Get(email, password);
+            userId = currentUser?.Id ?? -1;
+
+            if (currentUser == null || !VerifyHashedPassword(currentUser.Password, password)) return null;
+
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, currentUser.Email),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
+                };
+
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+                claims,
+                "Token",
+                ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+
+            return claimsIdentity;
+        }
+
+        private bool VerifyHashedPassword(string password1, string password2)
+        {
+            return password1 == password2;
         }
     }
 }
