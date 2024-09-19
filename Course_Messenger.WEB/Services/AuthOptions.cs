@@ -9,7 +9,7 @@ public class AuthOptions
 
     public const string AUDIENCE = "MyValidAudience";
 
-    const string KEY = "mysupersecret_secretkey!987";
+    const string KEY = "mysupersecret_secretkey!98712233";
 
     public const int LIFETIME = 10;
 

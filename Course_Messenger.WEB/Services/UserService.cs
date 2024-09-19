@@ -75,6 +75,7 @@ namespace Course_Messenger.WEB.Services
 
                 // меняем почту и фотку
                 modelToUpdate.Email = model.Email;
+                modelToUpdate.Name = model.Name;
                 modelToUpdate.Photo = model.Photo;
 
                 db.Users.Update(modelToUpdate);
