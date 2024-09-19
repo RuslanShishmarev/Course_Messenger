@@ -26,5 +26,15 @@
         /// Id получателя
         /// </summary>
         public int To { get; set; }
+
+        /// <summary>
+        /// Id чата
+        /// </summary>
+        public int ChatId { get; set; }
+
+        /// <summary>
+        /// Модель чата
+        /// </summary>
+        public ChatModel Chat { get; set; }
     }
 }

@@ -21,5 +21,10 @@
         /// Дата создания
         /// </summary>
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Сообщения в чате
+        /// </summary>
+        public List<MessageModel> Messages { get; set; }
     }
 }
