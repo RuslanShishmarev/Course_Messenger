@@ -37,13 +37,10 @@ public class ChatService : IChatService
     {
         using (var db = new CourseAppContext())
         {
-            //ищем чат по id
-            var chat = db.Chats.FirstOrDefault(x => x.Id == chatId);
-            if (chat != null)
-            {
-                db.Chats.Remove(chat);
-                db.SaveChanges();
-            }
+            //ищем чат по id, если не найдет будет исключение
+            var chat = db.Chats.First(x => x.Id == chatId);
+            db.Chats.Remove(chat);
+            db.SaveChanges();
         }
     }
 
@@ -51,6 +48,15 @@ public class ChatService : IChatService
     {
         using (var db = new CourseAppContext())
         {
+            //найдем отправителя и получателя на существование
+            var sender = db.Users.Find(from);
+            var recipient = db.Users.Find(to);
+
+            if (sender == null || recipient == null)
+            {
+                throw new Exception("Пользоваьеди не найдено");
+            }
+
             //ищем чат
             var chat = db.Chats.FirstOrDefault(x => x.Id == chatId);
             var date = DateTime.Now;
