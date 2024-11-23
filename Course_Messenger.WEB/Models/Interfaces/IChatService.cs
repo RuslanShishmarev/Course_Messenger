@@ -26,7 +26,8 @@ public interface IChatService
     /// Удаление чата
     /// </summary>
     /// <param name="chatId">id чата</param>
-    void DeleteChat(int chatId);
+    /// <param name="userId">id пользователя</param>
+    void DeleteChat(int chatId, int userId);
 
     /// <summary>
     /// Создание сообщения

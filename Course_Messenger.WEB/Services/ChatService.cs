@@ -33,12 +33,12 @@ public class ChatService : IChatService
         }
     }
 
-    public void DeleteChat(int chatId)
+    public void DeleteChat(int chatId, int userId)
     {
         using (var db = new CourseAppContext())
         {
             //ищем чат по id, если не найдет будет исключение
-            var chat = db.Chats.First(x => x.Id == chatId);
+            var chat = db.Chats.First(x => (x.User1 == userId || x.User2 == userId) && x.Id == chatId);
             db.Chats.Remove(chat);
             db.SaveChanges();
         }

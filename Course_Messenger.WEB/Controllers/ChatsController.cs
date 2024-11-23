@@ -12,9 +12,11 @@ namespace Course_Messenger.WEB.Controllers;
 public class ChatsController : ControllerBase
 {
     private IChatService _chatService;
-    public ChatsController(IChatService chatService)
+    private IUserService _userService;
+    public ChatsController(IChatService chatService, IUserService userService)
     {
         _chatService = chatService;
+        _userService = userService;
     }
 
     [HttpGet("{userId}")]
@@ -38,7 +40,9 @@ public class ChatsController : ControllerBase
     [HttpDelete("{chatId}")]
     public IActionResult DeleteChat(int chatId)
     {
-        _chatService.DeleteChat(chatId);
+        var currentUserEmail = HttpContext.User.Identity.Name;
+        var currentUser = _userService.Get(currentUserEmail);
+        _chatService.DeleteChat(chatId, currentUser.Id);
         return Ok("Чат удален");
     }
 }
