@@ -19,16 +19,10 @@ namespace Course_Messenger.WEB.Models
         /// </summary>
         public DbSet<ChatModel> Chats { get; set; } = null!;
 
-        //public AppContext()
-        //{
-        //    // Database.EnsureDeleted(); - не обязательно. Удалит все, вместе с данными!
-        //    //Database.EnsureCreated();
-        //}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CourseAppContext(DbContextOptions<CourseAppContext> options) : base(options)
         {
-            string dbName = "CourseMessenger";
-            optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database={dbName};Trusted_Connection=True;");
+            // Database.EnsureDeleted(); - не обязательно. Удалит все, вместе с данными!
+            Database.EnsureCreated();
         }
     }
 }
