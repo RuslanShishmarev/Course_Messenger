@@ -21,10 +21,44 @@ namespace Course_Messenger.App.Services
             return null;
         }
 
+        public async Task<UserShort[]?> GetAll(AuthToken token, string? namePattern = null)
+        {
+            var url = string.IsNullOrEmpty(namePattern) ? 
+                Host + "Users/all" :
+                Host + $"Users?name={namePattern}";
+
+            var (content, httpCode) = await SendActionToServer(
+                url: url,
+                httpMethod: HttpMethod.Get,
+                token: token);
+
+            if (httpCode == System.Net.HttpStatusCode.OK)
+            {
+                var newUser = JsonConvert.DeserializeObject<UserShort[]>(content);
+                return newUser;
+            }
+            return null;
+        }
+
+        public async Task<UserShort[]?> GetAll(AuthToken token)
+        {
+            var (content, httpCode) = await SendActionToServer(
+                url: Host + "Users",
+                httpMethod: HttpMethod.Get,
+                token: token);
+
+            if (httpCode == System.Net.HttpStatusCode.OK)
+            {
+                var newUser = JsonConvert.DeserializeObject<UserShort[]>(content);
+                return newUser;
+            }
+            return null;
+        }
+
         public async Task<User?> Get(AuthToken token)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users/",
+                url: Host + "Users/me",
                 httpMethod: HttpMethod.Get,
                 token: token);
 

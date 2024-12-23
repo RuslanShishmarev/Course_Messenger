@@ -3,6 +3,7 @@
     x:Class="Course_Messenger.App.Views.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Course_Messenger.App.Views"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:Course_Messenger.App.ViewModels"
     Title="{Binding ProfileName}">
@@ -22,12 +23,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Frame HeightRequest="100" WidthRequest="100">
-                <Image
-                    HeightRequest="100"
-                    Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-                    WidthRequest="100" />
-            </Frame>
+            <local:UserPhotoView BindingContext="{Binding}" />
             <Button
                 Grid.Column="1"
                 Margin="5"

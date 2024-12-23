@@ -23,6 +23,19 @@ namespace Course_Messenger.WEB.Services
             return existed;
         }
 
+        public IEnumerable<UserShortModel> GetAll()
+        {
+            return _dbContext.Users.Cast<UserShortModel>();
+        }
+
+        public IEnumerable<UserShortModel> GetAll(string namePattern)
+        {
+            return _dbContext.Users
+                .Where(x => x.Name.Contains(namePattern) || 
+                            x.Email.Contains(namePattern))
+                .Cast<UserShortModel>();
+        }
+
         public UserModel Get(string email)
         {
             var existed = _dbContext.Users.First(u => u.Email == email);

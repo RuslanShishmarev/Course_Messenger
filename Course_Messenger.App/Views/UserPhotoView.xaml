@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="Course_Messenger.App.Views.UserPhotoView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Course_Messenger.App.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="models:UserShort">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <Frame HeightRequest="100" WidthRequest="100">
+            <Image
+                HeightRequest="100"
+                Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                WidthRequest="100" />
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>

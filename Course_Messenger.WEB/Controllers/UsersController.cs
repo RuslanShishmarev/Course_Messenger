@@ -21,7 +21,19 @@ namespace Course_Messenger.WEB.Controllers
             _userService = userService;
         }
 
+        [HttpGet("all")]
+        public IEnumerable<UserShortModel> GetAll()
+        {
+            return _userService.GetAll();
+        }
+
         [HttpGet]
+        public IEnumerable<UserShortModel> GetAllFilter(string name)
+        {
+            return _userService.GetAll(name);
+        }
+
+        [HttpGet("me")]
         public UserModel Get()
         {
             return _userService.Get(HttpContext.User.Identity.Name);
