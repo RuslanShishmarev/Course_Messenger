@@ -65,33 +65,25 @@ internal class ProfilePageViewModel : BindableObject
     }
 
     private async void SetNewData()
-    {        
-        if (!string.IsNullOrEmpty(this.Name))
+    {
+        var newUserData = new Models.User
         {
-            App.CurrentUser.Name = this.Name;
-        }
+            Id = App.CurrentUser.Id,
+            Name = string.IsNullOrEmpty(this.Name) ? App.CurrentUser.Name : this.Name,
+            Email = string.IsNullOrEmpty(this.Login) ? App.CurrentUser.Email : this.Login,
+            Photo = this.Photo,
+        };
 
-        if (!string.IsNullOrEmpty(this.Login))
-        {
-            App.CurrentUser.Email = this.Login;
-        }
+        var newData = await _userRequestService.Update(newUserData, App.Token);
 
-        if (this.Photo != null)
-        {
-            App.CurrentUser.Photo = this.Photo;
-        }
+        if (newData is null) return;
 
-        var newData = await _userRequestService.Update(App.CurrentUser, App.Token);
+        App.CurrentUser = newData;
+        Name = App.CurrentUser.Name;
+        Login = App.CurrentUser.Email;
+        Photo = App.CurrentUser.Photo;
 
-        if (newData != null)
-        {
-            App.CurrentUser = newData;
-            Name = App.CurrentUser.Name;
-            Login = App.CurrentUser.Email;
-            Photo = App.CurrentUser.Photo;
-
-            OnPropertyChanged(nameof(ProfileName));
-        }
+        OnPropertyChanged(nameof(ProfileName));
     }
 
     private async void SetNewPhoto()

@@ -7,7 +7,7 @@ namespace Course_Messenger.App.ViewModels;
 
 internal class SignUpPageViewModel : LoginPasswordViewModel
 {
-    private string _passwordAccept;
+    private string _passwordAccept = string.Empty;
     public string PasswordAccept
     {
         get => _passwordAccept;
