@@ -16,5 +16,8 @@
         <Tab Title="Chats">
             <ShellContent ContentTemplate="{DataTemplate local:ChatsPage}" />
         </Tab>
+        <Tab Title="Profile">
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" />
+        </Tab>
     </TabBar>
 </Shell>

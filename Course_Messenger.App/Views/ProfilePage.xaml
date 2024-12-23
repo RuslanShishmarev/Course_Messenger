@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Course_Messenger.App.Views.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:Course_Messenger.App.ViewModels"
+    Title="{Binding ProfileName}">
+    <ContentPage.BindingContext>
+        <viewmodel:ProfilePageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Frame HeightRequest="100" WidthRequest="100">
+                <Image
+                    HeightRequest="100"
+                    Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                    WidthRequest="100" />
+            </Frame>
+            <Button
+                Grid.Column="1"
+                Margin="5"
+                Command="{Binding SetNewPhotoCommand}"
+                HeightRequest="50"
+                Text="New photo" />
+        </Grid>
+
+        <Label
+            HorizontalOptions="Center"
+            Text="Name"
+            VerticalOptions="Center" />
+        <Entry HorizontalTextAlignment="Center" Text="{Binding Name}" />
+
+        <Label
+            HorizontalOptions="Center"
+            Text="Email"
+            VerticalOptions="Center" />
+        <Entry HorizontalTextAlignment="Center" Text="{Binding Login}" />
+
+        <Button Command="{Binding SetNewDataCommand}" Text="Set" />
+    </VerticalStackLayout>
+</ContentPage>

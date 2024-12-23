@@ -50,5 +50,21 @@ namespace Course_Messenger.App.Services
             }
             return null;
         }
+
+        public async Task<User?> Update(User user, AuthToken token)
+        {
+            var (content, httpCode) = await SendActionToServer(
+                url: Host + "Users/",
+                httpMethod: HttpMethod.Patch,
+                token: token,
+                data: user);
+
+            if (httpCode == System.Net.HttpStatusCode.OK)
+            {
+                var newUser = JsonConvert.DeserializeObject<User>(content);
+                return newUser;
+            }
+            return null;
+        }
     }
 }
