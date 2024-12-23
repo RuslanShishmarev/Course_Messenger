@@ -2,7 +2,7 @@
 
 internal class LoginPasswordViewModel : BindableObject
 {
-    private string _login = string.Empty;
+    private string _login;
     public string Login
     {
         get => _login;
@@ -13,7 +13,7 @@ internal class LoginPasswordViewModel : BindableObject
         }
     }
 
-    private string _password = string.Empty;
+    private string _password;
     public string Password
     {
         get => _password;

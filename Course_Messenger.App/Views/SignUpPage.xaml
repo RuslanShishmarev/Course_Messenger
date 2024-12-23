@@ -37,6 +37,6 @@
         <Button
             Command="{Binding CreateCommand}"
             HorizontalOptions="Fill"
-            Text="SignIn" />
+            Text="SignUp" />
     </VerticalStackLayout>
 </ContentPage>

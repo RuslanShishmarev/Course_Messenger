@@ -12,6 +12,9 @@ internal class LoginPageViewModel : LoginPasswordViewModel
     {
         SignInCommand = new RelayCommand(SignIn);
         SignUpCommand = new RelayCommand(SignUp);
+
+        this.Login = App.CurrentUser?.Email;
+        this.Password = App.CurrentUser?.Password;
     }
 
     private void SignIn()

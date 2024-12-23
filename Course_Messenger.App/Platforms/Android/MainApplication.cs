@@ -3,7 +3,12 @@ using Android.Runtime;
 
 namespace Course_Messenger.App
 {
-    [Application]
+    //#if DEBUG
+    //    [Application(AllowBackup = false, Debuggable = true, UsesCleartextTraffic = true)]  // connect to local service
+    //#else                                       // on the host for debugging,
+    //    [Application] 
+    //#endif
+    [Application(AllowBackup = false, Debuggable = true, UsesCleartextTraffic = true)]
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
