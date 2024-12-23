@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="Course_Messenger.App.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Course_Messenger.App.Views"
+    xmlns:viewmodel="clr-namespace:Course_Messenger.App.ViewModels"
+    Title="Messenger">
+    <Shell.BindingContext>
+        <viewmodel:MainPageViewModel />
+    </Shell.BindingContext>
+    <TabBar>
+        <Tab Title="Contacts">
+            <ShellContent ContentTemplate="{DataTemplate local:ContactsPage}" />
+        </Tab>
+        <Tab Title="Chats">
+            <ShellContent ContentTemplate="{DataTemplate local:ChatsPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

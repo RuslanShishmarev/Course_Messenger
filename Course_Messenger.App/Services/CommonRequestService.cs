@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 
 namespace Course_Messenger.App.Services;
 
-internal class CommonRequestService
+public class CommonRequestService
 {
     public string Host => DeviceInfo.Platform == DevicePlatform.Android ?
         "http://10.0.2.2:5000/" :
@@ -16,6 +16,7 @@ internal class CommonRequestService
         string url,
         HttpMethod httpMethod,
         LoginPasswordModel loginPassword = null,
+        AuthToken token = null,
         object data = null)
     {
         var handler = new HttpsClientHandlerService();
@@ -25,7 +26,10 @@ internal class CommonRequestService
 
         if (loginPassword != null)
             client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(loginPassword.GetEncoded());
+                new AuthenticationHeaderValue("Basic", loginPassword.GetEncoded());
+        else if (token != null)
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", token.AccessToken);
 
         if (data != null)
             request.Content = JsonContent.Create(data);

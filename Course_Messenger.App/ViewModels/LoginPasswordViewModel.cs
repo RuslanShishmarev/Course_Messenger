@@ -10,6 +10,7 @@ internal class LoginPasswordViewModel : BindableObject
         {
             _login = value;
             OnPropertyChanged(nameof(Login));
+            OnPropertyChanged(nameof(CanSignIn));
         }
     }
 
@@ -21,6 +22,9 @@ internal class LoginPasswordViewModel : BindableObject
         {
             _password = value;
             OnPropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(CanSignIn));
         }
     }
+
+    public bool CanSignIn => !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password);
 }

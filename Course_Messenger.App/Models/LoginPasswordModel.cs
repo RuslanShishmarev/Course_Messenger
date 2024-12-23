@@ -17,7 +17,7 @@ public class LoginPasswordModel
     public string GetEncoded()
     {
         return Convert.ToBase64String(
-            Encoding.GetEncoding("ISO-8859-1").GetBytes($"{Login}:{Password}")
+            Encoding.Latin1.GetBytes($"{Login}:{Password}")
         );
     }
 }

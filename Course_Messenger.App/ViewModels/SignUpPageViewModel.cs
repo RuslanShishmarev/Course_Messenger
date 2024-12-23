@@ -61,7 +61,7 @@ internal class SignUpPageViewModel : LoginPasswordViewModel
 
         if (newUser is null) return;
 
-        App.CurrentUser = newUser;
+        //App.CurrentUser = newUser;
         App.Current.MainPage = new LoginPage();
     }
 }

@@ -35,6 +35,7 @@
             <Button
                 Command="{Binding SignInCommand}"
                 HorizontalOptions="Fill"
+                IsEnabled="{Binding CanSignIn}"
                 Text="SignIn" />
             <Button
                 BackgroundColor="{StaticResource Secondary}"

@@ -74,12 +74,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\ChatsPage.xaml.cs">
+	    <DependentUpon>ChatsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ChatsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContactsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
