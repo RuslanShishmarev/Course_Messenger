@@ -34,7 +34,7 @@ internal class LoginPageViewModel : LoginPasswordViewModel
         Preferences.Set(nameof(this.Login), this.Login);
         Preferences.Set(nameof(this.Password), this.Password);
 
-        App.Current.MainPage = new MainPage();
+        App.Current.MainPage = new NavigationPage(new MainPage());
     }
 
     private void SignUp()

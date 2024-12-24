@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+
 using Course_Messenger.App.Models;
 using Course_Messenger.App.Services;
-using System;
-using System.Collections.Generic;
+using Course_Messenger.App.Views;
+
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Course_Messenger.App.ViewModels;
 
@@ -50,8 +48,11 @@ internal class ContactsPageViewModel : BindableObject
         }
     }
 
-    private void OpenChat(UserShort? selectedContact)
+    private async void OpenChat(UserShort? selectedContact)
     {
-        App.Current.MainPage.DisplayAlert("Chat", selectedContact?.Name, "Ok");
+        await App.Current.MainPage.Navigation.PushModalAsync(new ChatUserPage
+        {
+            BindingContext = new ChatUserPageViewModel(selectedContact)
+        });
     }
 }
