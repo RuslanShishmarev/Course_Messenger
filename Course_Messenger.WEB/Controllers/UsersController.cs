@@ -24,13 +24,15 @@ namespace Course_Messenger.WEB.Controllers
         [HttpGet("all")]
         public IEnumerable<UserShortModel> GetAll()
         {
-            return _userService.GetAll();
+            var currentUser = _userService.Get(HttpContext.User.Identity.Name);
+            return _userService.GetAll(currentUser.Id);
         }
 
         [HttpGet]
         public IEnumerable<UserShortModel> GetAllFilter(string name)
         {
-            return _userService.GetAll(name);
+            var currentUser = _userService.Get(HttpContext.User.Identity.Name);
+            return _userService.GetAll(name, currentUser.Id);
         }
 
         [HttpGet("me")]

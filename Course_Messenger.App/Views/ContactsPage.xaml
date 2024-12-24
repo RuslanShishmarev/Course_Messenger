@@ -19,6 +19,12 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ContactsPageViewModel}}, Path=OpenChatCommand}"
+                                CommandParameter="{Binding}"
+                                NumberOfTapsRequired="1" />
+                        </Grid.GestureRecognizers>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="110" />
                             <ColumnDefinition />

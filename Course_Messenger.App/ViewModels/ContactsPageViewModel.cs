@@ -1,4 +1,5 @@
-﻿using Course_Messenger.App.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using Course_Messenger.App.Models;
 using Course_Messenger.App.Services;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,15 @@ internal class ContactsPageViewModel : BindableObject
 
     public ObservableCollection<UserShort> Users { get; set; } = new ObservableCollection<UserShort>();
 
+    public RelayCommand<UserShort> OpenChatCommand { get; }
+
     private UserRequestService _userRequestService;
 
     public ContactsPageViewModel()
     {
         _userRequestService = new UserRequestService();
+
+        OpenChatCommand = new RelayCommand<UserShort>(OpenChat);
         FillDataUsers();
     }
 
@@ -43,5 +48,10 @@ internal class ContactsPageViewModel : BindableObject
         {
             Users.Add(user);
         }
+    }
+
+    private void OpenChat(UserShort? selectedContact)
+    {
+        App.Current.MainPage.DisplayAlert("Chat", selectedContact?.Name, "Ok");
     }
 }

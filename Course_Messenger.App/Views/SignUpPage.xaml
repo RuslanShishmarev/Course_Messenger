@@ -35,8 +35,15 @@
             Text="{Binding PasswordAccept}" />
 
         <Button
+            Margin="5"
             Command="{Binding CreateCommand}"
             HorizontalOptions="Fill"
             Text="SignUp" />
+        <Button
+            Margin="5"
+            BackgroundColor="{StaticResource Gray400}"
+            Command="{Binding GoToLoginCommand}"
+            HorizontalOptions="Fill"
+            Text="Back" />
     </VerticalStackLayout>
 </ContentPage>

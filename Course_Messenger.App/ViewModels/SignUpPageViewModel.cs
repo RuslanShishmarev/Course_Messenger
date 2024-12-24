@@ -20,10 +20,13 @@ internal class SignUpPageViewModel : LoginPasswordViewModel
 
     public RelayCommand CreateCommand { get; }
 
+    public RelayCommand GoToLoginCommand { get; }
+
     private UserRequestService _userService;
     public SignUpPageViewModel()
     {
         CreateCommand = new RelayCommand(Create);
+        GoToLoginCommand = new RelayCommand(GoToLogin);
         _userService = new UserRequestService();
     }
 
@@ -62,6 +65,11 @@ internal class SignUpPageViewModel : LoginPasswordViewModel
         if (newUser is null) return;
 
         //App.CurrentUser = newUser;
+        App.Current.MainPage = new LoginPage();
+    }
+
+    private void GoToLogin()
+    {
         App.Current.MainPage = new LoginPage();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Course_Messenger.App.Services;
+using Course_Messenger.App.Views;
 
 namespace Course_Messenger.App.ViewModels;
 
@@ -44,6 +45,8 @@ internal class ProfilePageViewModel : BindableObject
 
     public RelayCommand SetNewPhotoCommand { get; }
 
+    public RelayCommand ExitCommand { get; }
+
     private UserRequestService _userRequestService;
 
     public ProfilePageViewModel()
@@ -62,6 +65,7 @@ internal class ProfilePageViewModel : BindableObject
 
         SetNewDataCommand = new RelayCommand(SetNewData);
         SetNewPhotoCommand = new RelayCommand(SetNewPhoto);
+        ExitCommand = new RelayCommand(Exit);
     }
 
     private async void SetNewData()
@@ -113,5 +117,13 @@ internal class ProfilePageViewModel : BindableObject
         }
         var selected = photoStream.ToArray();
         Photo = selected;
+    }
+
+    private async void Exit()
+    {
+        if (await App.Current.MainPage.DisplayAlert("Exit", "Are you sure?", "Yes", "No"))
+        {
+            App.Current.MainPage = new LoginPage();
+        }
     }
 }

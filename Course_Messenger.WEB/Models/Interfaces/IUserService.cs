@@ -8,9 +8,9 @@ namespace Course_Messenger.WEB.Models.Interfaces
 
         UserModel Get(string email);
 
-        IEnumerable<UserShortModel> GetAll();
+        IEnumerable<UserShortModel> GetAll(int currentUserId);
 
-        IEnumerable<UserShortModel> GetAll(string namePattern);
+        IEnumerable<UserShortModel> GetAll(string namePattern, int currentUserId);
 
         UserModel Create(UserModel model);
 

@@ -23,16 +23,18 @@ namespace Course_Messenger.WEB.Services
             return existed;
         }
 
-        public IEnumerable<UserShortModel> GetAll()
+        public IEnumerable<UserShortModel> GetAll(int currentUserId)
         {
-            return _dbContext.Users.Cast<UserShortModel>();
+            return _dbContext.Users.Where(x => x.Id != currentUserId).Cast<UserShortModel>();
         }
 
-        public IEnumerable<UserShortModel> GetAll(string namePattern)
+        public IEnumerable<UserShortModel> GetAll(string namePattern, int currentUserId)
         {
             return _dbContext.Users
-                .Where(x => x.Name.Contains(namePattern) || 
-                            x.Email.Contains(namePattern))
+                .Where(
+                    x => x.Id != currentUserId &&
+                        (x.Name.Contains(namePattern) || 
+                         x.Email.Contains(namePattern)))
                 .Cast<UserShortModel>();
         }
 

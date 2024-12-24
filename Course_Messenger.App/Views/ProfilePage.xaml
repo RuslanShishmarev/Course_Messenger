@@ -44,6 +44,14 @@
             VerticalOptions="Center" />
         <Entry HorizontalTextAlignment="Center" Text="{Binding Login}" />
 
-        <Button Command="{Binding SetNewDataCommand}" Text="Set" />
+        <Button
+            Margin="5"
+            Command="{Binding SetNewDataCommand}"
+            Text="Set" />
+        <Button
+            Margin="5"
+            BackgroundColor="{StaticResource Gray400}"
+            Command="{Binding ExitCommand}"
+            Text="Exit" />
     </VerticalStackLayout>
 </ContentPage>

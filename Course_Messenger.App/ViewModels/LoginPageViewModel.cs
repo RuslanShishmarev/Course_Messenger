@@ -18,8 +18,8 @@ internal class LoginPageViewModel : LoginPasswordViewModel
         SignUpCommand = new RelayCommand(SignUp);
 
         _userRequestService = new UserRequestService();
-        this.Login = App.CurrentUser?.Email;
-        this.Password = App.CurrentUser?.Password;
+        this.Login = App.CurrentUser?.Email ?? Preferences.Get(nameof(this.Login), string.Empty);
+        this.Password = App.CurrentUser?.Password ?? Preferences.Get(nameof(this.Password), string.Empty);
     }
 
     private async void SignIn()
@@ -30,6 +30,10 @@ internal class LoginPageViewModel : LoginPasswordViewModel
 
         if (token is null) return;
         App.Token = token;
+
+        Preferences.Set(nameof(this.Login), this.Login);
+        Preferences.Set(nameof(this.Password), this.Password);
+
         App.Current.MainPage = new MainPage();
     }
 
