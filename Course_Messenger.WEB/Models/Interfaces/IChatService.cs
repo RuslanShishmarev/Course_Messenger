@@ -6,7 +6,7 @@ public interface IChatService
     /// </summary>
     /// <param name="userId">id пользователя, который запрашивает список</param>
     /// <returns>Модель чата</returns>
-    List<ChatModel> GetChats(int userId);
+    List<ChatWithMessage> GetChats(int userId);
 
     /// <summary>
     /// Получить сообщения в чате

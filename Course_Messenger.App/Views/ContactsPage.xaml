@@ -15,7 +15,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Entry Text="{Binding NamePattern, Mode=TwoWay}" />
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Users}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Elements}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">

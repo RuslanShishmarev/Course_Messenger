@@ -1,6 +1,8 @@
 ﻿using Course_Messenger.WEB.Models;
 using Course_Messenger.WEB.Models.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Course_Messenger.WEB.Services;
 
 public class ChatService : IChatService
@@ -11,12 +13,21 @@ public class ChatService : IChatService
         _dbContext = dbContext;
     }
 
-    public List<ChatModel> GetChats(int userId)
+    public List<ChatWithMessage> GetChats(int userId)
     {
-        //Проверяем значение свойств id по запросу от текущего юзера
-        return _dbContext.Chats
-            .Where(x => x.User1 ==  userId || x.User2 == userId)
-            .ToList();
+        var result = new List<ChatWithMessage>();
+
+        var allChats = _dbContext.Chats
+            .Include(x => x.Messages)
+            .Where(x => x.User1 == userId || x.User2 == userId);
+
+        foreach (ChatModel item in allChats)
+        {
+            UserShortModel user = _dbContext.Users.Find(item.User1 == userId ? item.User2 : item.User1);
+
+            result.Add(new ChatWithMessage(item, user));
+        }
+        return result;
     }
 
     public MessageModel GetLastMessage(int chatId)

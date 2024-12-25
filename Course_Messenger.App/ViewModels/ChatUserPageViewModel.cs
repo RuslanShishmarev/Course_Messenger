@@ -1,14 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+
 using Course_Messenger.App.Models;
+using Course_Messenger.App.Services;
 
 using System.Collections.ObjectModel;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Course_Messenger.App.ViewModels;
 
 public class ChatUserPageViewModel : BindableObject
 {
-    private UserShort UserTo { get; }
+    public UserShort UserTo { get; }
 
     private string _newMassage = string.Empty;
     public string NewMessage
@@ -21,16 +22,16 @@ public class ChatUserPageViewModel : BindableObject
         }
     }
 
-
-    public ObservableCollection<MessageViewModel> Messages { get; }
+    public ObservableCollection<MessageViewModel> Messages { get; private set; }
 
     public RelayCommand SendNewMessageCommand {  get; }
 
-    private int? _chatId;
+    private int? _chatId = null;
 
     public ChatUserPageViewModel(UserShort userTo)
     {
         UserTo = userTo;
+        _chatRequestService = new ChatRequestService();
 
         var listMessages = new MessageViewModel[]
         {
@@ -129,6 +130,22 @@ public class ChatUserPageViewModel : BindableObject
         Messages = new ObservableCollection<MessageViewModel>(listMessages);
 
         SendNewMessageCommand = new RelayCommand(SendNewMessage);
+    }
+
+    private ChatRequestService _chatRequestService;
+
+    public ChatUserPageViewModel(Chat chat)
+    {
+        UserTo = chat.UserTo;
+        _chatRequestService = new ChatRequestService();
+
+        SendNewMessageCommand = new RelayCommand(SendNewMessage);
+        Task.Run(async () =>
+        {
+            var messages = await _chatRequestService.GetMessages(chat.Id, App.Token);
+            Messages = new ObservableCollection<MessageViewModel>(
+                messages.Select(x => new MessageViewModel(x, x.To == App.CurrentUser.Id)));
+        });
     }
 
     private void SendNewMessage()

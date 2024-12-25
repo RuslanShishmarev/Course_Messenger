@@ -20,7 +20,7 @@ public class ChatsController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public List<ChatModel> GetChats(int userId)
+    public List<ChatWithMessage> GetChats(int userId)
     {
         return _chatService.GetChats(userId);
     }
