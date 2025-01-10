@@ -7,12 +7,14 @@
     Title="{Binding UserTo.Name}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
+        <Label IsVisible="{Binding IsUserOnline}" Text="Online" />
         <CollectionView
             x:Name="MessagesView"
+            Grid.Row="1"
             BackgroundColor="{StaticResource MidnightBlue}"
             ItemsSource="{Binding Messages}"
             ItemsUpdatingScrollMode="KeepLastItemInView">
@@ -40,6 +42,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Label
                                 Grid.Row="0"
@@ -63,13 +66,18 @@
                                 Grid.Row="1"
                                 Text="{Binding DateStr}"
                                 TextColor="{StaticResource Gray200}" />
+                            <Label
+                                Grid.Row="2"
+                                FontSize="5"
+                                IsVisible="{Binding Model.IsViewed}"
+                                Text="read" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />

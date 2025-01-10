@@ -33,9 +33,14 @@ public class UsersChatsViewModel<T> : BindableObject
         OpenChatCommand = new RelayCommand<T>(OpenChat);
 
         App.HubChatService.RegisterRecive(RecieveMessage);
-        App.HubChatService.RegisterUserInChat(userId => _lastOpenedChat?.UserInChat(userId));
+        App.HubChatService.RegisterUserInChat(UserInChat);
 
         App.ConnectHub();
+    }
+
+    private void UserInChat(int userId)
+    {
+        _lastOpenedChat?.UserInChat(userId);
     }
 
     private async void OpenChat(T? element)

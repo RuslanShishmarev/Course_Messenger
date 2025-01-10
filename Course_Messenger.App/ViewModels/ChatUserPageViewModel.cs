@@ -62,8 +62,6 @@ public class ChatUserPageViewModel : BindableObject
         UserTo = chat.UserTo;
         SendNewMessageCommand = new RelayCommand(SendNewMessage);
         Task.Run(LoadMessages);
-
-        App.HubChatService.ReadChat(chat.Id);
     }
 
     public void UserInChat(int userId)
@@ -79,6 +77,8 @@ public class ChatUserPageViewModel : BindableObject
         {
             Messages.Add(new MessageViewModel(message, message.To == App.CurrentUser.Id));
         }
+
+        await App.HubChatService.ReadChat(Chat.Id);
     }
 
     private async void SendNewMessage()
