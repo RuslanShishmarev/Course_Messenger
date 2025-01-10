@@ -13,21 +13,50 @@ public class ChatService : IChatService
         _dbContext = dbContext;
     }
 
-    public List<ChatWithMessage> GetChats(int userId)
+    public List<ChatUserMessage> GetChats(int userId)
     {
-        var result = new List<ChatWithMessage>();
+        var result = new List<ChatUserMessage>();
 
         var allChats = _dbContext.Chats
             .Include(x => x.Messages)
-            .Where(x => x.User1 == userId || x.User2 == userId);
+            .Where(x => x.User1 == userId || x.User2 == userId)
+            .ToList();
 
         foreach (ChatModel item in allChats)
         {
             UserShortModel user = _dbContext.Users.Find(item.User1 == userId ? item.User2 : item.User1);
 
-            result.Add(new ChatWithMessage(item, user));
+            result.Add(new ChatUserMessage(item, user));
         }
         return result;
+    }
+
+    public ChatUserMessage? GetChatForUsers(int currentUserId, int userTo)
+    {
+        ChatModel? chat = _dbContext.Chats
+            .Include(x => x.Messages)
+            .FirstOrDefault(x => (x.User1 == currentUserId && x.User2 == userTo) || 
+                                 (x.User1 == userTo && x.User2 == currentUserId));
+        
+        UserShortModel? user = _dbContext.Users.Find(userTo);
+
+        if (chat == null && user != null)
+        {
+            var newChat = new ChatModel
+            {
+                Created = DateTime.Now,
+                User1 = currentUserId,
+                User2 = userTo,
+            };
+            _dbContext.Chats.Add(newChat);
+            _dbContext.SaveChanges();
+
+            chat = newChat;
+        }
+        else if (user is null)
+            return null;
+
+        return new ChatUserMessage(chat, user);
     }
 
     public MessageModel GetLastMessage(int chatId)
@@ -40,6 +69,22 @@ public class ChatService : IChatService
     {
         //получаем все сообщения по id чата
         return _dbContext.Messages.Where(x => x.ChatId == chatId).ToList();
+    }
+
+    public void SetViewedMessages(int chatId, int readerId)
+    {
+        var messages = _dbContext.Messages.Where(x => 
+            x.ChatId == chatId &&
+            x.To == readerId &&
+            x.IsViewed == false)
+            .ToList();
+
+        foreach (var message in messages)
+        {
+            message.IsViewed = true;
+        }
+        _dbContext.Messages.UpdateRange(messages);
+        _dbContext.SaveChangesAsync();
     }
 
     public void DeleteChat(int chatId, int userId)
@@ -84,7 +129,8 @@ public class ChatService : IChatService
             Text = text,
             From = from,
             To = to,
-            Created = date
+            Created = date,
+            IsViewed = false,
         };
 
         _dbContext.Messages.Add(newMessage);

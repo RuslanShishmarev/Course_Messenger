@@ -1,3 +1,4 @@
+using Course_Messenger.WEB.Hubs;
 using Course_Messenger.WEB.Models;
 using Course_Messenger.WEB.Models.Interfaces;
 using Course_Messenger.WEB.Services;
@@ -34,10 +35,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CourseAppContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<CourseAppContext>(
+    options => options.UseSqlServer(connection));
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IChatService, ChatService>();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -53,5 +57,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chat");
 
 app.Run();

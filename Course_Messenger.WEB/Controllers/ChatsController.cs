@@ -20,9 +20,25 @@ public class ChatsController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public List<ChatWithMessage> GetChats(int userId)
+    public List<ChatUserMessage> GetChats(int userId)
     {
         return _chatService.GetChats(userId);
+    }
+
+    [HttpGet("byuser/{userTo}")]
+    public ActionResult<ChatUserMessage?> GetChatForUsers(int userTo)
+    {
+        var currentUserEmail = HttpContext.User.Identity.Name;
+        var currentUser = _userService.Get(currentUserEmail);
+
+        var chat = _chatService.GetChatForUsers(currentUser.Id, userTo);
+
+        if (chat is null)
+        {
+            return NotFound();
+        }
+
+        else return Ok(chat);
     }
 
     [HttpGet("messages/{chatId}")]

@@ -11,6 +11,7 @@ internal class ContactsPageViewModel : UsersChatsViewModel<UserShort>
     {
         _userRequestService = new UserRequestService();
         this.LoadDataAction = FillDataUsers;
+        FillDataUsers();
     }
 
     private async void FillDataUsers()

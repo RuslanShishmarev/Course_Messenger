@@ -1,6 +1,6 @@
 namespace Course_Messenger.WEB.Models;
 
-public class ChatWithMessage
+public class ChatUserMessage
 {
     /// <summary>
     /// Это обязательное свойство для работы с базой данных
@@ -22,7 +22,7 @@ public class ChatWithMessage
     /// </summary>
     public string? LastMessage { get; set; }
 
-    public ChatWithMessage(ChatModel chatModel, UserShortModel userShort)
+    public ChatUserMessage(ChatModel chatModel, UserShortModel userShort)
     {
         this.Id = chatModel.Id;
         this.UserTo = userShort;

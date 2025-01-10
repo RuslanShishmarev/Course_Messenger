@@ -36,5 +36,10 @@
         /// Модель чата
         /// </summary>
         public ChatModel Chat { get; set; }
+
+        /// <summary>
+        /// Флаг, прочитано ли сообщение
+        /// </summary>
+        public bool IsViewed { get; set; }
     }
 }

@@ -22,5 +22,5 @@ public class Chat
     /// </summary>
     public string? LastMessage { get; set; }
 
-    public string? LastMessageShort => LastMessage?.Take(100).ToString();
+    public string? LastMessageShort => new string(LastMessage?.Take(100).ToArray());
 }

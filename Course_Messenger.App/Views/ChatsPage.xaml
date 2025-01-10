@@ -20,7 +20,7 @@
                     <Grid Margin="5">
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ContactsPageViewModel}}, Path=OpenChatCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ChatsPageViewModel}}, Path=OpenChatCommand}"
                                 CommandParameter="{Binding}"
                                 NumberOfTapsRequired="1" />
                         </Grid.GestureRecognizers>
@@ -32,7 +32,7 @@
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <local:UserPhotoView BindingContext="{Binding}" />
+                        <local:UserPhotoView BindingContext="{Binding UserTo}" />
                         <VerticalStackLayout Grid.Column="1">
                             <Label SemanticProperties.HeadingLevel="Level2" Text="{Binding UserTo.Name}" />
                             <Label SemanticProperties.HeadingLevel="Level4" Text="{Binding UserTo.Email}" />

@@ -11,6 +11,7 @@ public class ChatsPageViewModel : UsersChatsViewModel<Chat>
     {
         _chatRequestService = new ChatRequestService();
         LoadDataAction = LoadChats;
+        LoadChats();
     }
 
     private async void LoadChats()

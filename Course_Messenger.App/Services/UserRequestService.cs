@@ -9,7 +9,7 @@ namespace Course_Messenger.App.Services
         public async Task<AuthToken?> GetToken(string login, string password)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users/token",
+                url: Constants.HOST + "Users/token",
                 httpMethod: HttpMethod.Post,
                 loginPassword: new LoginPasswordModel(login, password));
 
@@ -24,8 +24,8 @@ namespace Course_Messenger.App.Services
         public async Task<UserShort[]?> GetAll(AuthToken token, string? namePattern = null)
         {
             var url = string.IsNullOrEmpty(namePattern) ? 
-                Host + "Users/all" :
-                Host + $"Users?name={namePattern}";
+                Constants.HOST + "Users/all" :
+                Constants.HOST + $"Users?name={namePattern}";
 
             var (content, httpCode) = await SendActionToServer(
                 url: url,
@@ -43,7 +43,7 @@ namespace Course_Messenger.App.Services
         public async Task<UserShort[]?> GetAll(AuthToken token)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users",
+                url: Constants.HOST + "Users",
                 httpMethod: HttpMethod.Get,
                 token: token);
 
@@ -58,7 +58,7 @@ namespace Course_Messenger.App.Services
         public async Task<User?> Get(AuthToken token)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users/me",
+                url: Constants.HOST + "Users/me",
                 httpMethod: HttpMethod.Get,
                 token: token);
 
@@ -73,7 +73,7 @@ namespace Course_Messenger.App.Services
         public async Task<User?> Create(User user)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users/",
+                url: Constants.HOST + "Users/",
                 httpMethod: HttpMethod.Post,
                 data: user);
 
@@ -88,7 +88,7 @@ namespace Course_Messenger.App.Services
         public async Task<User?> Update(User user, AuthToken token)
         {
             var (content, httpCode) = await SendActionToServer(
-                url: Host + "Users/",
+                url: Constants.HOST + "Users/",
                 httpMethod: HttpMethod.Patch,
                 token: token,
                 data: user);

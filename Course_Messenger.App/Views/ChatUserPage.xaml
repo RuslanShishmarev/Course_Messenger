@@ -15,8 +15,7 @@
             x:Name="MessagesView"
             BackgroundColor="{StaticResource MidnightBlue}"
             ItemsSource="{Binding Messages}"
-            ItemsUpdatingScrollMode="KeepLastItemInView"
-            VerticalOptions="End">
+            ItemsUpdatingScrollMode="KeepLastItemInView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame

@@ -31,4 +31,9 @@ public class Message
     /// Id чата
     /// </summary>
     public int ChatId { get; set; }
+
+    /// <summary>
+    /// Флаг, прочитано ли сообщение
+    /// </summary>
+    public bool IsViewed { get; set; }
 }
