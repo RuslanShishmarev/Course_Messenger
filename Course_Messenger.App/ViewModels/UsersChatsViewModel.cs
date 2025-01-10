@@ -35,7 +35,7 @@ public class UsersChatsViewModel<T> : BindableObject
         App.HubChatService.RegisterRecive(RecieveMessage);
         App.HubChatService.RegisterUserInChat(UserInChat);
 
-        App.ConnectHub();
+        App.HubChatService.Start();
     }
 
     private void UserInChat(int userId)

@@ -14,6 +14,8 @@ public class HubChatService : HubConnectionBuilder
     private const string READ_CHAT = "ReadChat";
     private const string USER_IN_CHAT = "UserInChat";
 
+    public bool Connected { get; private set; }
+
     public HubChatService()
     {
         var hadlerHelper = new HttpsClientHandlerService();
@@ -39,12 +41,16 @@ public class HubChatService : HubConnectionBuilder
 
     public async Task Start()
     {
+        if (Connected) return;
+
         await _connection.StartAsync();
+        Connected = true;
     }
 
     public async Task Stop()
     {
         await _connection.StopAsync();
+        Connected = false;
     }
 
     public async Task SendMessage(MessageDTO message)

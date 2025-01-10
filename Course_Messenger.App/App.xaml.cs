@@ -9,9 +9,7 @@ namespace Course_Messenger.App
 
         public static User CurrentUser { get; set; }
 
-        public static HubChatService HubChatService { get; set; }
-
-        private static bool _isConnected = false;
+        public static HubChatService HubChatService { get; private set; }
 
         public App()
         {
@@ -22,14 +20,6 @@ namespace Course_Messenger.App
             HubChatService = new HubChatService();
         }
 
-        public static async Task ConnectHub()
-        {
-            if (_isConnected) return;
-
-            await HubChatService.Start();
-            _isConnected = true;
-        }
-
         protected override Window CreateWindow(IActivationState? activationState)
         {
             var wnd = base.CreateWindow(activationState);
@@ -37,7 +27,6 @@ namespace Course_Messenger.App
             wnd.Destroying += async (s, e) =>
             {
                 await HubChatService?.Stop();
-                _isConnected = false;
             };
 
             return wnd;
