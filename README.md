@@ -29,3 +29,7 @@
 
 ### Начальные требования
 Основы синтаксиса C#, общие представления о работе HTTP запросов и понимание табличного хранения данных.
+
+### Полезные ссылки:
+- Телеграмм канал: [@ruslan_shishmarev](https://t.me/ruslan_shishmarev)
+- YouTube: [@RuslanShishmarev](https://www.youtube.com/@RuslanShishmarev)
